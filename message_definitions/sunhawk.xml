@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<mavlink>
+  <!-- uAvionix contact info:                                     -->
+  <!-- company URL: http://www.uAvionix.com                       -->
+  <!-- email contact: matt@uAvionix.com or jeff@uAvionix.com      -->
+  <!-- mavlink ID range: 13001 - 13004                            -->
+  <include>common.xml</include>
+  <version>0</version>
+  <dialect>0</dialect>
+  <enums>
+    <enum name="MAV_SUNHAWK_STATE_CMD">
+      <entry value="1" name="MAV_PEDAL_REDUCE">
+        <description>reduce pedal control aimed.</description>
+      </entry>
+      <entry value="2" name="MAV_ECU_STOP">
+        <description>stop engine.</description>
+      </entry>
+      <entry value="4" name="MAV_ECU_START">
+        <description>start engine.</description>
+      </entry>
+      <entry value="6" name="MAV_ECU_LOOP">
+        <description>loop engine.</description>
+      </entry>
+      <entry value="8" name="MAV_THROW_GOODS">
+        <description>Throw goods.</description>
+      </entry>
+      <entry value="9" name="MAV_THROW_AGOODS">
+        <description>Throw agoods.</description>
+      </entry>
+      <entry value="10" name="MAV_THROW_BGOODS">
+        <description>Throw bgoods.</description>
+      </entry>
+      <entry value="11" name="MAV_THROW_CGOODS">
+        <description>Throw cgoods.</description>
+      </entry>
+      <entry value="12" name="MAV_THROW_DGOODS">
+        <description>Throw dgoods.</description>
+      </entry>
+      <entry value="15" name="MAV_LED_LOAD">
+        <description>led laod.</description>
+      </entry>
+      <entry value="16" name="MAV_LED_FRONT">
+        <description>led front.</description>
+      </entry>
+      <entry value="17" name="MAV_LED_BACK">
+        <description>led back.</description>
+      </entry>
+      <entry value="34" name="MAV_MP_PLAY">
+        <description>mp play.</description>
+      </entry>
+      <entry value="35" name="MAV_MP_STOP">
+        <description>mp stop.</description>
+      </entry>
+      <entry value="36" name="MAV_MP_UP">
+        <description>mp up.</description>
+      </entry>
+      <entry value="37" name="MAV_MP_DOWN">
+        <description>mp down.</description>
+      </entry>
+      <entry value="38" name="MAV_MP_PUP">
+        <description>mp pup.</description>
+      </entry>
+      <entry value="39" name="MAV_MP_PDOWN">
+        <description>mp pdown.</description>
+      </entry>
+    </enum>
+  </enums>
+  <messages>
+    <message id="13001" name="FRSKY_MANUAL_CONTROL">
+      <description>FRSKY_MANUAL_CONTROL</description>
+      <field type="uint8_t" name="target">The system to be controlled.</field>
+      <field type="int16_t" name="x" invalid="INT16_MAX"></field>
+      <field type="int16_t" name="y" invalid="INT16_MAX"></field>
+      <field type="int16_t" name="z" invalid="INT16_MAX"></field>
+      <field type="int16_t" name="r" invalid="INT16_MAX"> </field>
+      <field type="uint16_t" name="buttons"></field>
+      <field type="int16_t" name="s1"></field>
+      <field type="int16_t" name="s2"></field>
+      <field type="int16_t" name="ls"></field>
+      <field type="int16_t" name="rs"></field>
+    </message>
+    <message id="13002" name="SUNHAWK_S760_DATA">
+      <description>sunhawk s760 data</description>
+      <field type="float[2]" name="gear_temp">[front back] gear tempreture</field>
+      <field type="float" name="fuel_percentage"></field>
+      <field type="float" name="ecu_water_temp"></field>
+      <field type="float" name="ecu_intake_maniflod_pressure"></field>
+      <field type="float" name="ecu_intake_air_temp"></field>
+      <field type="float" name="ecu_thr_valve_opening"></field>
+      <field type="float" name="ecu_rpm_feedback"></field>
+      <field type="float" name="ecu_rpm_accurancy"></field>
+      <field type="float" name="ecu_pedal_aimed"></field>
+      <field type="float" name="ecu_pedal_feedback"></field>
+      <field type="float" name="ecu_oil_temp"></field>
+      <field type="float" name="ecu_oil_pressure"></field>
+      <field type="float" name="ecu_gaso_pressure"></field>
+      <field type="float" name="ectl_aimed"></field>
+      <field type="float" name="ecu_input_v"></field>
+    </message>
+    <message id="13003" name="SUNHAWK_S100_DATA">
+      <description>sunhawk s100 data</description>
+      <field type="float[4]" name="k_temp"></field>
+      <field type="float[4]" name="ntc_temp"></field>
+      <field type="float[2]" name="tp100_temp"></field>
+      <field type="float" name="oil_temp"></field>
+      <field type="float" name="oil_percentage"></field>
+      <field type="float" name="gaso_pressure"></field>
+      <field type="float" name="fuel_percentage"></field>
+      <field type="float" name="engine_rpm_feedback"></field>
+      <field type="float" name="starting_v"></field>
+      <field type="float" name="thr_servo_aimed">Throttle servo control</field>
+    </message>
+    <message id="13004" name="SUNHAWK_MOTOR_DATA">
+      <description>sunhawk motor data</description>
+      <field type="float" name="motor_v"></field>
+      <field type="float[6]" name="motor_feedback"></field>
+      <field type="float[6]" name="motor_aimed"></field>
+      <field type="float[6]" name="motor_a"></field>
+      <field type="float[6]" name="motor_temp"></field>
+    </message>
+    <message id="13005" name="SUNHAWK_STATE_CMD">
+      <description>sunhawk state command</description>
+      <field type="uint8_t" name="sunhawk_cmd"></field>
+    </message>
+  </messages>
+</mavlink>
