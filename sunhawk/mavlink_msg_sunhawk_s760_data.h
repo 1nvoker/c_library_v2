@@ -20,15 +20,16 @@ typedef struct __mavlink_sunhawk_s760_data_t {
  float ecu_gaso_pressure; /*<  */
  float ectl_aimed; /*<  */
  float ecu_input_v; /*<  */
+ uint8_t state; /*<  bit1 landing detector2|bit0 landing detector1*/
 } mavlink_sunhawk_s760_data_t;
 
-#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN 64
-#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN 64
-#define MAVLINK_MSG_ID_13002_LEN 64
-#define MAVLINK_MSG_ID_13002_MIN_LEN 64
+#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN 65
+#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN 65
+#define MAVLINK_MSG_ID_13002_LEN 65
+#define MAVLINK_MSG_ID_13002_MIN_LEN 65
 
-#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC 31
-#define MAVLINK_MSG_ID_13002_CRC 31
+#define MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC 20
+#define MAVLINK_MSG_ID_13002_CRC 20
 
 #define MAVLINK_MSG_SUNHAWK_S760_DATA_FIELD_GEAR_TEMP_LEN 2
 
@@ -36,7 +37,7 @@ typedef struct __mavlink_sunhawk_s760_data_t {
 #define MAVLINK_MESSAGE_INFO_SUNHAWK_S760_DATA { \
     13002, \
     "SUNHAWK_S760_DATA", \
-    15, \
+    16, \
     {  { "gear_temp", NULL, MAVLINK_TYPE_FLOAT, 2, 0, offsetof(mavlink_sunhawk_s760_data_t, gear_temp) }, \
          { "fuel_percentage", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_sunhawk_s760_data_t, fuel_percentage) }, \
          { "ecu_water_temp", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_sunhawk_s760_data_t, ecu_water_temp) }, \
@@ -52,12 +53,13 @@ typedef struct __mavlink_sunhawk_s760_data_t {
          { "ecu_gaso_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_sunhawk_s760_data_t, ecu_gaso_pressure) }, \
          { "ectl_aimed", NULL, MAVLINK_TYPE_FLOAT, 0, 56, offsetof(mavlink_sunhawk_s760_data_t, ectl_aimed) }, \
          { "ecu_input_v", NULL, MAVLINK_TYPE_FLOAT, 0, 60, offsetof(mavlink_sunhawk_s760_data_t, ecu_input_v) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 64, offsetof(mavlink_sunhawk_s760_data_t, state) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SUNHAWK_S760_DATA { \
     "SUNHAWK_S760_DATA", \
-    15, \
+    16, \
     {  { "gear_temp", NULL, MAVLINK_TYPE_FLOAT, 2, 0, offsetof(mavlink_sunhawk_s760_data_t, gear_temp) }, \
          { "fuel_percentage", NULL, MAVLINK_TYPE_FLOAT, 0, 8, offsetof(mavlink_sunhawk_s760_data_t, fuel_percentage) }, \
          { "ecu_water_temp", NULL, MAVLINK_TYPE_FLOAT, 0, 12, offsetof(mavlink_sunhawk_s760_data_t, ecu_water_temp) }, \
@@ -73,6 +75,7 @@ typedef struct __mavlink_sunhawk_s760_data_t {
          { "ecu_gaso_pressure", NULL, MAVLINK_TYPE_FLOAT, 0, 52, offsetof(mavlink_sunhawk_s760_data_t, ecu_gaso_pressure) }, \
          { "ectl_aimed", NULL, MAVLINK_TYPE_FLOAT, 0, 56, offsetof(mavlink_sunhawk_s760_data_t, ectl_aimed) }, \
          { "ecu_input_v", NULL, MAVLINK_TYPE_FLOAT, 0, 60, offsetof(mavlink_sunhawk_s760_data_t, ecu_input_v) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 64, offsetof(mavlink_sunhawk_s760_data_t, state) }, \
          } \
 }
 #endif
@@ -98,10 +101,11 @@ typedef struct __mavlink_sunhawk_s760_data_t {
  * @param ecu_gaso_pressure  
  * @param ectl_aimed  
  * @param ecu_input_v  
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v)
+                               const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN];
@@ -119,6 +123,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack(uint8_t system_id, uin
     _mav_put_float(buf, 52, ecu_gaso_pressure);
     _mav_put_float(buf, 56, ectl_aimed);
     _mav_put_float(buf, 60, ecu_input_v);
+    _mav_put_uint8_t(buf, 64, state);
     _mav_put_float_array(buf, 0, gear_temp, 2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #else
@@ -137,6 +142,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack(uint8_t system_id, uin
     packet.ecu_gaso_pressure = ecu_gaso_pressure;
     packet.ectl_aimed = ectl_aimed;
     packet.ecu_input_v = ecu_input_v;
+    packet.state = state;
     mav_array_memcpy(packet.gear_temp, gear_temp, sizeof(float)*2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #endif
@@ -167,10 +173,11 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack(uint8_t system_id, uin
  * @param ecu_gaso_pressure  
  * @param ectl_aimed  
  * @param ecu_input_v  
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v)
+                               const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN];
@@ -188,6 +195,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_status(uint8_t system_
     _mav_put_float(buf, 52, ecu_gaso_pressure);
     _mav_put_float(buf, 56, ectl_aimed);
     _mav_put_float(buf, 60, ecu_input_v);
+    _mav_put_uint8_t(buf, 64, state);
     _mav_put_float_array(buf, 0, gear_temp, 2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #else
@@ -206,6 +214,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_status(uint8_t system_
     packet.ecu_gaso_pressure = ecu_gaso_pressure;
     packet.ectl_aimed = ectl_aimed;
     packet.ecu_input_v = ecu_input_v;
+    packet.state = state;
     mav_array_memcpy(packet.gear_temp, gear_temp, sizeof(float)*2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #endif
@@ -239,11 +248,12 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_status(uint8_t system_
  * @param ecu_gaso_pressure  
  * @param ectl_aimed  
  * @param ecu_input_v  
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   const float *gear_temp,float fuel_percentage,float ecu_water_temp,float ecu_intake_maniflod_pressure,float ecu_intake_air_temp,float ecu_thr_valve_opening,float ecu_rpm_feedback,float ecu_rpm_accurancy,float ecu_pedal_aimed,float ecu_pedal_feedback,float ecu_oil_temp,float ecu_oil_pressure,float ecu_gaso_pressure,float ectl_aimed,float ecu_input_v)
+                                   const float *gear_temp,float fuel_percentage,float ecu_water_temp,float ecu_intake_maniflod_pressure,float ecu_intake_air_temp,float ecu_thr_valve_opening,float ecu_rpm_feedback,float ecu_rpm_accurancy,float ecu_pedal_aimed,float ecu_pedal_feedback,float ecu_oil_temp,float ecu_oil_pressure,float ecu_gaso_pressure,float ectl_aimed,float ecu_input_v,uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN];
@@ -261,6 +271,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_chan(uint8_t system_id
     _mav_put_float(buf, 52, ecu_gaso_pressure);
     _mav_put_float(buf, 56, ectl_aimed);
     _mav_put_float(buf, 60, ecu_input_v);
+    _mav_put_uint8_t(buf, 64, state);
     _mav_put_float_array(buf, 0, gear_temp, 2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #else
@@ -279,6 +290,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_chan(uint8_t system_id
     packet.ecu_gaso_pressure = ecu_gaso_pressure;
     packet.ectl_aimed = ectl_aimed;
     packet.ecu_input_v = ecu_input_v;
+    packet.state = state;
     mav_array_memcpy(packet.gear_temp, gear_temp, sizeof(float)*2);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);
 #endif
@@ -297,7 +309,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_pack_chan(uint8_t system_id
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sunhawk_s760_data_t* sunhawk_s760_data)
 {
-    return mavlink_msg_sunhawk_s760_data_pack(system_id, component_id, msg, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v);
+    return mavlink_msg_sunhawk_s760_data_pack(system_id, component_id, msg, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v, sunhawk_s760_data->state);
 }
 
 /**
@@ -311,7 +323,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_encode(uint8_t system_id, u
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sunhawk_s760_data_t* sunhawk_s760_data)
 {
-    return mavlink_msg_sunhawk_s760_data_pack_chan(system_id, component_id, chan, msg, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v);
+    return mavlink_msg_sunhawk_s760_data_pack_chan(system_id, component_id, chan, msg, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v, sunhawk_s760_data->state);
 }
 
 /**
@@ -325,7 +337,7 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_encode_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_sunhawk_s760_data_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sunhawk_s760_data_t* sunhawk_s760_data)
 {
-    return mavlink_msg_sunhawk_s760_data_pack_status(system_id, component_id, _status, msg,  sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v);
+    return mavlink_msg_sunhawk_s760_data_pack_status(system_id, component_id, _status, msg,  sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v, sunhawk_s760_data->state);
 }
 
 /**
@@ -347,10 +359,11 @@ static inline uint16_t mavlink_msg_sunhawk_s760_data_encode_status(uint8_t syste
  * @param ecu_gaso_pressure  
  * @param ectl_aimed  
  * @param ecu_input_v  
+ * @param state  bit1 landing detector2|bit0 landing detector1
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sunhawk_s760_data_send(mavlink_channel_t chan, const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v)
+static inline void mavlink_msg_sunhawk_s760_data_send(mavlink_channel_t chan, const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN];
@@ -368,6 +381,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send(mavlink_channel_t chan, co
     _mav_put_float(buf, 52, ecu_gaso_pressure);
     _mav_put_float(buf, 56, ectl_aimed);
     _mav_put_float(buf, 60, ecu_input_v);
+    _mav_put_uint8_t(buf, 64, state);
     _mav_put_float_array(buf, 0, gear_temp, 2);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S760_DATA, buf, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC);
 #else
@@ -386,6 +400,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send(mavlink_channel_t chan, co
     packet.ecu_gaso_pressure = ecu_gaso_pressure;
     packet.ectl_aimed = ectl_aimed;
     packet.ecu_input_v = ecu_input_v;
+    packet.state = state;
     mav_array_memcpy(packet.gear_temp, gear_temp, sizeof(float)*2);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S760_DATA, (const char *)&packet, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC);
 #endif
@@ -399,7 +414,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send(mavlink_channel_t chan, co
 static inline void mavlink_msg_sunhawk_s760_data_send_struct(mavlink_channel_t chan, const mavlink_sunhawk_s760_data_t* sunhawk_s760_data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_sunhawk_s760_data_send(chan, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v);
+    mavlink_msg_sunhawk_s760_data_send(chan, sunhawk_s760_data->gear_temp, sunhawk_s760_data->fuel_percentage, sunhawk_s760_data->ecu_water_temp, sunhawk_s760_data->ecu_intake_maniflod_pressure, sunhawk_s760_data->ecu_intake_air_temp, sunhawk_s760_data->ecu_thr_valve_opening, sunhawk_s760_data->ecu_rpm_feedback, sunhawk_s760_data->ecu_rpm_accurancy, sunhawk_s760_data->ecu_pedal_aimed, sunhawk_s760_data->ecu_pedal_feedback, sunhawk_s760_data->ecu_oil_temp, sunhawk_s760_data->ecu_oil_pressure, sunhawk_s760_data->ecu_gaso_pressure, sunhawk_s760_data->ectl_aimed, sunhawk_s760_data->ecu_input_v, sunhawk_s760_data->state);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S760_DATA, (const char *)sunhawk_s760_data, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC);
 #endif
@@ -413,7 +428,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send_struct(mavlink_channel_t c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sunhawk_s760_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v)
+static inline void mavlink_msg_sunhawk_s760_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const float *gear_temp, float fuel_percentage, float ecu_water_temp, float ecu_intake_maniflod_pressure, float ecu_intake_air_temp, float ecu_thr_valve_opening, float ecu_rpm_feedback, float ecu_rpm_accurancy, float ecu_pedal_aimed, float ecu_pedal_feedback, float ecu_oil_temp, float ecu_oil_pressure, float ecu_gaso_pressure, float ectl_aimed, float ecu_input_v, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -431,6 +446,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send_buf(mavlink_message_t *msg
     _mav_put_float(buf, 52, ecu_gaso_pressure);
     _mav_put_float(buf, 56, ectl_aimed);
     _mav_put_float(buf, 60, ecu_input_v);
+    _mav_put_uint8_t(buf, 64, state);
     _mav_put_float_array(buf, 0, gear_temp, 2);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S760_DATA, buf, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC);
 #else
@@ -449,6 +465,7 @@ static inline void mavlink_msg_sunhawk_s760_data_send_buf(mavlink_message_t *msg
     packet->ecu_gaso_pressure = ecu_gaso_pressure;
     packet->ectl_aimed = ectl_aimed;
     packet->ecu_input_v = ecu_input_v;
+    packet->state = state;
     mav_array_memcpy(packet->gear_temp, gear_temp, sizeof(float)*2);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S760_DATA, (const char *)packet, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_CRC);
 #endif
@@ -611,6 +628,16 @@ static inline float mavlink_msg_sunhawk_s760_data_get_ecu_input_v(const mavlink_
 }
 
 /**
+ * @brief Get field state from sunhawk_s760_data message
+ *
+ * @return  bit1 landing detector2|bit0 landing detector1
+ */
+static inline uint8_t mavlink_msg_sunhawk_s760_data_get_state(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  64);
+}
+
+/**
  * @brief Decode a sunhawk_s760_data message into a struct
  *
  * @param msg The message to decode
@@ -634,6 +661,7 @@ static inline void mavlink_msg_sunhawk_s760_data_decode(const mavlink_message_t*
     sunhawk_s760_data->ecu_gaso_pressure = mavlink_msg_sunhawk_s760_data_get_ecu_gaso_pressure(msg);
     sunhawk_s760_data->ectl_aimed = mavlink_msg_sunhawk_s760_data_get_ectl_aimed(msg);
     sunhawk_s760_data->ecu_input_v = mavlink_msg_sunhawk_s760_data_get_ecu_input_v(msg);
+    sunhawk_s760_data->state = mavlink_msg_sunhawk_s760_data_get_state(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN? msg->len : MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN;
         memset(sunhawk_s760_data, 0, MAVLINK_MSG_ID_SUNHAWK_S760_DATA_LEN);

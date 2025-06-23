@@ -15,15 +15,16 @@ typedef struct __mavlink_sunhawk_s100_data_t {
  float engine_rpm_feedback; /*<  */
  float starting_v; /*<  */
  float thr_servo_aimed; /*<  Throttle servo control*/
+ uint8_t state; /*<  bit1 landing detector2|bit0 landing detector1*/
 } mavlink_sunhawk_s100_data_t;
 
-#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN 68
-#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_MIN_LEN 68
-#define MAVLINK_MSG_ID_13003_LEN 68
-#define MAVLINK_MSG_ID_13003_MIN_LEN 68
+#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN 69
+#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_MIN_LEN 69
+#define MAVLINK_MSG_ID_13003_LEN 69
+#define MAVLINK_MSG_ID_13003_MIN_LEN 69
 
-#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_CRC 230
-#define MAVLINK_MSG_ID_13003_CRC 230
+#define MAVLINK_MSG_ID_SUNHAWK_S100_DATA_CRC 46
+#define MAVLINK_MSG_ID_13003_CRC 46
 
 #define MAVLINK_MSG_SUNHAWK_S100_DATA_FIELD_K_TEMP_LEN 4
 #define MAVLINK_MSG_SUNHAWK_S100_DATA_FIELD_NTC_TEMP_LEN 4
@@ -33,7 +34,7 @@ typedef struct __mavlink_sunhawk_s100_data_t {
 #define MAVLINK_MESSAGE_INFO_SUNHAWK_S100_DATA { \
     13003, \
     "SUNHAWK_S100_DATA", \
-    10, \
+    11, \
     {  { "k_temp", NULL, MAVLINK_TYPE_FLOAT, 4, 0, offsetof(mavlink_sunhawk_s100_data_t, k_temp) }, \
          { "ntc_temp", NULL, MAVLINK_TYPE_FLOAT, 4, 16, offsetof(mavlink_sunhawk_s100_data_t, ntc_temp) }, \
          { "tp100_temp", NULL, MAVLINK_TYPE_FLOAT, 2, 32, offsetof(mavlink_sunhawk_s100_data_t, tp100_temp) }, \
@@ -44,12 +45,13 @@ typedef struct __mavlink_sunhawk_s100_data_t {
          { "engine_rpm_feedback", NULL, MAVLINK_TYPE_FLOAT, 0, 56, offsetof(mavlink_sunhawk_s100_data_t, engine_rpm_feedback) }, \
          { "starting_v", NULL, MAVLINK_TYPE_FLOAT, 0, 60, offsetof(mavlink_sunhawk_s100_data_t, starting_v) }, \
          { "thr_servo_aimed", NULL, MAVLINK_TYPE_FLOAT, 0, 64, offsetof(mavlink_sunhawk_s100_data_t, thr_servo_aimed) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 68, offsetof(mavlink_sunhawk_s100_data_t, state) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SUNHAWK_S100_DATA { \
     "SUNHAWK_S100_DATA", \
-    10, \
+    11, \
     {  { "k_temp", NULL, MAVLINK_TYPE_FLOAT, 4, 0, offsetof(mavlink_sunhawk_s100_data_t, k_temp) }, \
          { "ntc_temp", NULL, MAVLINK_TYPE_FLOAT, 4, 16, offsetof(mavlink_sunhawk_s100_data_t, ntc_temp) }, \
          { "tp100_temp", NULL, MAVLINK_TYPE_FLOAT, 2, 32, offsetof(mavlink_sunhawk_s100_data_t, tp100_temp) }, \
@@ -60,6 +62,7 @@ typedef struct __mavlink_sunhawk_s100_data_t {
          { "engine_rpm_feedback", NULL, MAVLINK_TYPE_FLOAT, 0, 56, offsetof(mavlink_sunhawk_s100_data_t, engine_rpm_feedback) }, \
          { "starting_v", NULL, MAVLINK_TYPE_FLOAT, 0, 60, offsetof(mavlink_sunhawk_s100_data_t, starting_v) }, \
          { "thr_servo_aimed", NULL, MAVLINK_TYPE_FLOAT, 0, 64, offsetof(mavlink_sunhawk_s100_data_t, thr_servo_aimed) }, \
+         { "state", NULL, MAVLINK_TYPE_UINT8_T, 0, 68, offsetof(mavlink_sunhawk_s100_data_t, state) }, \
          } \
 }
 #endif
@@ -80,10 +83,11 @@ typedef struct __mavlink_sunhawk_s100_data_t {
  * @param engine_rpm_feedback  
  * @param starting_v  
  * @param thr_servo_aimed  Throttle servo control
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed)
+                               const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN];
@@ -94,6 +98,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack(uint8_t system_id, uin
     _mav_put_float(buf, 56, engine_rpm_feedback);
     _mav_put_float(buf, 60, starting_v);
     _mav_put_float(buf, 64, thr_servo_aimed);
+    _mav_put_uint8_t(buf, 68, state);
     _mav_put_float_array(buf, 0, k_temp, 4);
     _mav_put_float_array(buf, 16, ntc_temp, 4);
     _mav_put_float_array(buf, 32, tp100_temp, 2);
@@ -107,6 +112,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack(uint8_t system_id, uin
     packet.engine_rpm_feedback = engine_rpm_feedback;
     packet.starting_v = starting_v;
     packet.thr_servo_aimed = thr_servo_aimed;
+    packet.state = state;
     mav_array_memcpy(packet.k_temp, k_temp, sizeof(float)*4);
     mav_array_memcpy(packet.ntc_temp, ntc_temp, sizeof(float)*4);
     mav_array_memcpy(packet.tp100_temp, tp100_temp, sizeof(float)*2);
@@ -134,10 +140,11 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack(uint8_t system_id, uin
  * @param engine_rpm_feedback  
  * @param starting_v  
  * @param thr_servo_aimed  Throttle servo control
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed)
+                               const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN];
@@ -148,6 +155,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_status(uint8_t system_
     _mav_put_float(buf, 56, engine_rpm_feedback);
     _mav_put_float(buf, 60, starting_v);
     _mav_put_float(buf, 64, thr_servo_aimed);
+    _mav_put_uint8_t(buf, 68, state);
     _mav_put_float_array(buf, 0, k_temp, 4);
     _mav_put_float_array(buf, 16, ntc_temp, 4);
     _mav_put_float_array(buf, 32, tp100_temp, 2);
@@ -161,6 +169,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_status(uint8_t system_
     packet.engine_rpm_feedback = engine_rpm_feedback;
     packet.starting_v = starting_v;
     packet.thr_servo_aimed = thr_servo_aimed;
+    packet.state = state;
     mav_array_memcpy(packet.k_temp, k_temp, sizeof(float)*4);
     mav_array_memcpy(packet.ntc_temp, ntc_temp, sizeof(float)*4);
     mav_array_memcpy(packet.tp100_temp, tp100_temp, sizeof(float)*2);
@@ -191,11 +200,12 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_status(uint8_t system_
  * @param engine_rpm_feedback  
  * @param starting_v  
  * @param thr_servo_aimed  Throttle servo control
+ * @param state  bit1 landing detector2|bit0 landing detector1
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   const float *k_temp,const float *ntc_temp,const float *tp100_temp,float oil_temp,float oil_percentage,float gaso_pressure,float fuel_percentage,float engine_rpm_feedback,float starting_v,float thr_servo_aimed)
+                                   const float *k_temp,const float *ntc_temp,const float *tp100_temp,float oil_temp,float oil_percentage,float gaso_pressure,float fuel_percentage,float engine_rpm_feedback,float starting_v,float thr_servo_aimed,uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN];
@@ -206,6 +216,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_chan(uint8_t system_id
     _mav_put_float(buf, 56, engine_rpm_feedback);
     _mav_put_float(buf, 60, starting_v);
     _mav_put_float(buf, 64, thr_servo_aimed);
+    _mav_put_uint8_t(buf, 68, state);
     _mav_put_float_array(buf, 0, k_temp, 4);
     _mav_put_float_array(buf, 16, ntc_temp, 4);
     _mav_put_float_array(buf, 32, tp100_temp, 2);
@@ -219,6 +230,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_chan(uint8_t system_id
     packet.engine_rpm_feedback = engine_rpm_feedback;
     packet.starting_v = starting_v;
     packet.thr_servo_aimed = thr_servo_aimed;
+    packet.state = state;
     mav_array_memcpy(packet.k_temp, k_temp, sizeof(float)*4);
     mav_array_memcpy(packet.ntc_temp, ntc_temp, sizeof(float)*4);
     mav_array_memcpy(packet.tp100_temp, tp100_temp, sizeof(float)*2);
@@ -239,7 +251,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_pack_chan(uint8_t system_id
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sunhawk_s100_data_t* sunhawk_s100_data)
 {
-    return mavlink_msg_sunhawk_s100_data_pack(system_id, component_id, msg, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed);
+    return mavlink_msg_sunhawk_s100_data_pack(system_id, component_id, msg, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed, sunhawk_s100_data->state);
 }
 
 /**
@@ -253,7 +265,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_encode(uint8_t system_id, u
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sunhawk_s100_data_t* sunhawk_s100_data)
 {
-    return mavlink_msg_sunhawk_s100_data_pack_chan(system_id, component_id, chan, msg, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed);
+    return mavlink_msg_sunhawk_s100_data_pack_chan(system_id, component_id, chan, msg, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed, sunhawk_s100_data->state);
 }
 
 /**
@@ -267,7 +279,7 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_encode_chan(uint8_t system_
  */
 static inline uint16_t mavlink_msg_sunhawk_s100_data_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_sunhawk_s100_data_t* sunhawk_s100_data)
 {
-    return mavlink_msg_sunhawk_s100_data_pack_status(system_id, component_id, _status, msg,  sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed);
+    return mavlink_msg_sunhawk_s100_data_pack_status(system_id, component_id, _status, msg,  sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed, sunhawk_s100_data->state);
 }
 
 /**
@@ -284,10 +296,11 @@ static inline uint16_t mavlink_msg_sunhawk_s100_data_encode_status(uint8_t syste
  * @param engine_rpm_feedback  
  * @param starting_v  
  * @param thr_servo_aimed  Throttle servo control
+ * @param state  bit1 landing detector2|bit0 landing detector1
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sunhawk_s100_data_send(mavlink_channel_t chan, const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed)
+static inline void mavlink_msg_sunhawk_s100_data_send(mavlink_channel_t chan, const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN];
@@ -298,6 +311,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send(mavlink_channel_t chan, co
     _mav_put_float(buf, 56, engine_rpm_feedback);
     _mav_put_float(buf, 60, starting_v);
     _mav_put_float(buf, 64, thr_servo_aimed);
+    _mav_put_uint8_t(buf, 68, state);
     _mav_put_float_array(buf, 0, k_temp, 4);
     _mav_put_float_array(buf, 16, ntc_temp, 4);
     _mav_put_float_array(buf, 32, tp100_temp, 2);
@@ -311,6 +325,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send(mavlink_channel_t chan, co
     packet.engine_rpm_feedback = engine_rpm_feedback;
     packet.starting_v = starting_v;
     packet.thr_servo_aimed = thr_servo_aimed;
+    packet.state = state;
     mav_array_memcpy(packet.k_temp, k_temp, sizeof(float)*4);
     mav_array_memcpy(packet.ntc_temp, ntc_temp, sizeof(float)*4);
     mav_array_memcpy(packet.tp100_temp, tp100_temp, sizeof(float)*2);
@@ -326,7 +341,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send(mavlink_channel_t chan, co
 static inline void mavlink_msg_sunhawk_s100_data_send_struct(mavlink_channel_t chan, const mavlink_sunhawk_s100_data_t* sunhawk_s100_data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    mavlink_msg_sunhawk_s100_data_send(chan, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed);
+    mavlink_msg_sunhawk_s100_data_send(chan, sunhawk_s100_data->k_temp, sunhawk_s100_data->ntc_temp, sunhawk_s100_data->tp100_temp, sunhawk_s100_data->oil_temp, sunhawk_s100_data->oil_percentage, sunhawk_s100_data->gaso_pressure, sunhawk_s100_data->fuel_percentage, sunhawk_s100_data->engine_rpm_feedback, sunhawk_s100_data->starting_v, sunhawk_s100_data->thr_servo_aimed, sunhawk_s100_data->state);
 #else
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_S100_DATA, (const char *)sunhawk_s100_data, MAVLINK_MSG_ID_SUNHAWK_S100_DATA_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN, MAVLINK_MSG_ID_SUNHAWK_S100_DATA_CRC);
 #endif
@@ -340,7 +355,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send_struct(mavlink_channel_t c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sunhawk_s100_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed)
+static inline void mavlink_msg_sunhawk_s100_data_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const float *k_temp, const float *ntc_temp, const float *tp100_temp, float oil_temp, float oil_percentage, float gaso_pressure, float fuel_percentage, float engine_rpm_feedback, float starting_v, float thr_servo_aimed, uint8_t state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
@@ -351,6 +366,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send_buf(mavlink_message_t *msg
     _mav_put_float(buf, 56, engine_rpm_feedback);
     _mav_put_float(buf, 60, starting_v);
     _mav_put_float(buf, 64, thr_servo_aimed);
+    _mav_put_uint8_t(buf, 68, state);
     _mav_put_float_array(buf, 0, k_temp, 4);
     _mav_put_float_array(buf, 16, ntc_temp, 4);
     _mav_put_float_array(buf, 32, tp100_temp, 2);
@@ -364,6 +380,7 @@ static inline void mavlink_msg_sunhawk_s100_data_send_buf(mavlink_message_t *msg
     packet->engine_rpm_feedback = engine_rpm_feedback;
     packet->starting_v = starting_v;
     packet->thr_servo_aimed = thr_servo_aimed;
+    packet->state = state;
     mav_array_memcpy(packet->k_temp, k_temp, sizeof(float)*4);
     mav_array_memcpy(packet->ntc_temp, ntc_temp, sizeof(float)*4);
     mav_array_memcpy(packet->tp100_temp, tp100_temp, sizeof(float)*2);
@@ -478,6 +495,16 @@ static inline float mavlink_msg_sunhawk_s100_data_get_thr_servo_aimed(const mavl
 }
 
 /**
+ * @brief Get field state from sunhawk_s100_data message
+ *
+ * @return  bit1 landing detector2|bit0 landing detector1
+ */
+static inline uint8_t mavlink_msg_sunhawk_s100_data_get_state(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  68);
+}
+
+/**
  * @brief Decode a sunhawk_s100_data message into a struct
  *
  * @param msg The message to decode
@@ -496,6 +523,7 @@ static inline void mavlink_msg_sunhawk_s100_data_decode(const mavlink_message_t*
     sunhawk_s100_data->engine_rpm_feedback = mavlink_msg_sunhawk_s100_data_get_engine_rpm_feedback(msg);
     sunhawk_s100_data->starting_v = mavlink_msg_sunhawk_s100_data_get_starting_v(msg);
     sunhawk_s100_data->thr_servo_aimed = mavlink_msg_sunhawk_s100_data_get_thr_servo_aimed(msg);
+    sunhawk_s100_data->state = mavlink_msg_sunhawk_s100_data_get_state(msg);
 #else
         uint8_t len = msg->len < MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN? msg->len : MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN;
         memset(sunhawk_s100_data, 0, MAVLINK_MSG_ID_SUNHAWK_S100_DATA_LEN);

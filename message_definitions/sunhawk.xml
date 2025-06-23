@@ -96,6 +96,7 @@
       <field type="float" name="ecu_gaso_pressure"></field>
       <field type="float" name="ectl_aimed"></field>
       <field type="float" name="ecu_input_v"></field>
+      <field type="uint8_t" name="state">bit1 landing detector2|bit0 landing detector1</field>
     </message>
     <message id="13003" name="SUNHAWK_S100_DATA">
       <description>sunhawk s100 data</description>
@@ -109,6 +110,7 @@
       <field type="float" name="engine_rpm_feedback"></field>
       <field type="float" name="starting_v"></field>
       <field type="float" name="thr_servo_aimed">Throttle servo control</field>
+      <field type="uint8_t" name="state">bit1 landing detector2|bit0 landing detector1</field>
     </message>
     <message id="13004" name="SUNHAWK_MOTOR_DATA">
       <description>sunhawk motor data</description>

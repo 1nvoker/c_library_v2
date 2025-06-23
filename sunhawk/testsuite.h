@@ -105,7 +105,7 @@ static void mavlink_test_sunhawk_s760_data(uint8_t system_id, uint8_t component_
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_sunhawk_s760_data_t packet_in = {
-        { 17.0, 18.0 },73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,409.0,437.0
+        { 17.0, 18.0 },73.0,101.0,129.0,157.0,185.0,213.0,241.0,269.0,297.0,325.0,353.0,381.0,409.0,437.0,197
     };
     mavlink_sunhawk_s760_data_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -123,6 +123,7 @@ static void mavlink_test_sunhawk_s760_data(uint8_t system_id, uint8_t component_
         packet1.ecu_gaso_pressure = packet_in.ecu_gaso_pressure;
         packet1.ectl_aimed = packet_in.ectl_aimed;
         packet1.ecu_input_v = packet_in.ecu_input_v;
+        packet1.state = packet_in.state;
         
         mav_array_memcpy(packet1.gear_temp, packet_in.gear_temp, sizeof(float)*2);
         
@@ -138,12 +139,12 @@ static void mavlink_test_sunhawk_s760_data(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s760_data_pack(system_id, component_id, &msg , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v );
+    mavlink_msg_sunhawk_s760_data_pack(system_id, component_id, &msg , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v , packet1.state );
     mavlink_msg_sunhawk_s760_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s760_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v );
+    mavlink_msg_sunhawk_s760_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v , packet1.state );
     mavlink_msg_sunhawk_s760_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -156,7 +157,7 @@ static void mavlink_test_sunhawk_s760_data(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s760_data_send(MAVLINK_COMM_1 , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v );
+    mavlink_msg_sunhawk_s760_data_send(MAVLINK_COMM_1 , packet1.gear_temp , packet1.fuel_percentage , packet1.ecu_water_temp , packet1.ecu_intake_maniflod_pressure , packet1.ecu_intake_air_temp , packet1.ecu_thr_valve_opening , packet1.ecu_rpm_feedback , packet1.ecu_rpm_accurancy , packet1.ecu_pedal_aimed , packet1.ecu_pedal_feedback , packet1.ecu_oil_temp , packet1.ecu_oil_pressure , packet1.ecu_gaso_pressure , packet1.ectl_aimed , packet1.ecu_input_v , packet1.state );
     mavlink_msg_sunhawk_s760_data_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -178,7 +179,7 @@ static void mavlink_test_sunhawk_s100_data(uint8_t system_id, uint8_t component_
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_sunhawk_s100_data_t packet_in = {
-        { 17.0, 18.0, 19.0, 20.0 },{ 129.0, 130.0, 131.0, 132.0 },{ 241.0, 242.0 },297.0,325.0,353.0,381.0,409.0,437.0,465.0
+        { 17.0, 18.0, 19.0, 20.0 },{ 129.0, 130.0, 131.0, 132.0 },{ 241.0, 242.0 },297.0,325.0,353.0,381.0,409.0,437.0,465.0,209
     };
     mavlink_sunhawk_s100_data_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
@@ -189,6 +190,7 @@ static void mavlink_test_sunhawk_s100_data(uint8_t system_id, uint8_t component_
         packet1.engine_rpm_feedback = packet_in.engine_rpm_feedback;
         packet1.starting_v = packet_in.starting_v;
         packet1.thr_servo_aimed = packet_in.thr_servo_aimed;
+        packet1.state = packet_in.state;
         
         mav_array_memcpy(packet1.k_temp, packet_in.k_temp, sizeof(float)*4);
         mav_array_memcpy(packet1.ntc_temp, packet_in.ntc_temp, sizeof(float)*4);
@@ -206,12 +208,12 @@ static void mavlink_test_sunhawk_s100_data(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s100_data_pack(system_id, component_id, &msg , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed );
+    mavlink_msg_sunhawk_s100_data_pack(system_id, component_id, &msg , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed , packet1.state );
     mavlink_msg_sunhawk_s100_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s100_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed );
+    mavlink_msg_sunhawk_s100_data_pack_chan(system_id, component_id, MAVLINK_COMM_0, &msg , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed , packet1.state );
     mavlink_msg_sunhawk_s100_data_decode(&msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
@@ -224,7 +226,7 @@ static void mavlink_test_sunhawk_s100_data(uint8_t system_id, uint8_t component_
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
         
         memset(&packet2, 0, sizeof(packet2));
-    mavlink_msg_sunhawk_s100_data_send(MAVLINK_COMM_1 , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed );
+    mavlink_msg_sunhawk_s100_data_send(MAVLINK_COMM_1 , packet1.k_temp , packet1.ntc_temp , packet1.tp100_temp , packet1.oil_temp , packet1.oil_percentage , packet1.gaso_pressure , packet1.fuel_percentage , packet1.engine_rpm_feedback , packet1.starting_v , packet1.thr_servo_aimed , packet1.state );
     mavlink_msg_sunhawk_s100_data_decode(last_msg, &packet2);
         MAVLINK_ASSERT(memcmp(&packet1, &packet2, sizeof(packet1)) == 0);
 
