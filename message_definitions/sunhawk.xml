@@ -1,128 +1,139 @@
 <?xml version="1.0"?>
 <mavlink>
-  <!-- uAvionix contact info:                                     -->
-  <!-- company URL: http://www.uAvionix.com                       -->
-  <!-- email contact: matt@uAvionix.com or jeff@uAvionix.com      -->
-  <!-- mavlink ID range: 13001 - 13004                            -->
   <include>common.xml</include>
-  <version>0</version>
-  <dialect>0</dialect>
+  <version>3</version>
   <enums>
+    <!-- 通用状态命令枚举 -->
     <enum name="MAV_SUNHAWK_STATE_CMD">
-      <entry value="1" name="MAV_PEDAL_REDUCE">
-        <description>reduce pedal control aimed.</description>
+      <!-- 引擎控制命令 -->
+      <entry value="1" name="MAV_PEDAL_CONTROL">
+        <description>油门闭环控制</description>
       </entry>
-      <entry value="2" name="MAV_ECU_STOP">
-        <description>stop engine.</description>
+      <entry value="2" name="MAV_ENGINE_CONTROL">
+        <description>发动机控制</description>
       </entry>
-      <entry value="4" name="MAV_ECU_START">
-        <description>start engine.</description>
+
+      <entry value="3" name="MAV_THROW_GOODS">
+        <description>抛投</description>
       </entry>
-      <entry value="6" name="MAV_ECU_LOOP">
-        <description>loop engine.</description>
+      
+      <!-- 设备控制命令 -->
+      <entry value="4" name="MAV_LOAD">
+        <description>负载开关</description>
       </entry>
-      <entry value="8" name="MAV_THROW_GOODS">
-        <description>Throw goods.</description>
+      <entry value="5" name="MAV_LED">
+        <description>LED开关</description>
       </entry>
-      <entry value="9" name="MAV_THROW_AGOODS">
-        <description>Throw agoods.</description>
+      <entry value="6" name="MAV_POD_POWER">
+        <description>吊舱电源</description>
       </entry>
-      <entry value="10" name="MAV_THROW_BGOODS">
-        <description>Throw bgoods.</description>
+      <entry value="7" name="MAV_PRESSURE_VALVES">
+        <description>压力阀</description>
       </entry>
-      <entry value="11" name="MAV_THROW_CGOODS">
-        <description>Throw cgoods.</description>
+      <entry value="8" name="MAV_SUSTAINED_RELEASE">
+        <description>缓释阀</description>
       </entry>
-      <entry value="12" name="MAV_THROW_DGOODS">
-        <description>Throw dgoods.</description>
+      
+      <!-- 角度控制命令 -->
+      <entry value="9" name="MAV_LIGHT_ANGLE">
+        <description>照明角度</description>
       </entry>
-      <entry value="15" name="MAV_LED_LOAD">
-        <description>led laod.</description>
+      <entry value="10" name="MAV_SPRAY_ANGLE">
+        <description>喷洒角度</description>
       </entry>
-      <entry value="16" name="MAV_LED_FRONT">
-        <description>led front.</description>
+      
+      <!-- 开关控制命令 -->
+      <entry value="11" name="MAV_IGNITION_SWITCH">
+        <description>点火开关</description>
       </entry>
-      <entry value="17" name="MAV_LED_BACK">
-        <description>led back.</description>
+
+      <entry value="12" name="MAV_OILPUMP_SWITCH">
+        <description>油泵开关</description>
       </entry>
-      <entry value="34" name="MAV_MP_PLAY">
-        <description>mp play.</description>
-      </entry>
-      <entry value="35" name="MAV_MP_STOP">
-        <description>mp stop.</description>
-      </entry>
-      <entry value="36" name="MAV_MP_UP">
-        <description>mp up.</description>
-      </entry>
-      <entry value="37" name="MAV_MP_DOWN">
-        <description>mp down.</description>
-      </entry>
-      <entry value="38" name="MAV_MP_PUP">
-        <description>mp pup.</description>
-      </entry>
-      <entry value="39" name="MAV_MP_PDOWN">
-        <description>mp pdown.</description>
+
+      <entry value="13" name="MAV_RADAR_SWITCH">
+        <description>雷达开关</description>
       </entry>
     </enum>
   </enums>
+
+  <enum name="MAV_CMD_BITMAP" bitmask="true">
+    <description>命令位图, 1表示开启设备, 0表示关闭设备。约定: 设备1表示飞机最前端的设备, 设备4表示飞机最后端的设备</description>
+    <entry value="1" name="DEVICE_1">
+      <description>设备1</description>
+    </entry>
+    <entry value="2" name="DEVICE_2">
+      <description>设备2</description>
+    </entry>
+    <entry value="4" name="DEVICE_3">
+      <description>设备3</description>
+    </entry>
+    <entry value="8" name="DEVICE_4">
+      <description>设备4</description>
+    </entry>
+  </enum>
+
   <messages>
-    <message id="13001" name="FRSKY_MANUAL_CONTROL">
-      <description>FRSKY_MANUAL_CONTROL</description>
-      <field type="uint8_t" name="target">The system to be controlled.</field>
-      <field type="int16_t" name="x" invalid="INT16_MAX"></field>
-      <field type="int16_t" name="y" invalid="INT16_MAX"></field>
-      <field type="int16_t" name="z" invalid="INT16_MAX"></field>
-      <field type="int16_t" name="r" invalid="INT16_MAX"> </field>
-      <field type="uint16_t" name="buttons"></field>
-      <field type="int16_t" name="s1"></field>
-      <field type="int16_t" name="s2"></field>
-      <field type="int16_t" name="ls"></field>
-      <field type="int16_t" name="rs"></field>
+    <!-- 实时控制反馈 (5Hz) -->
+    <message id="13002" name="SUNHAWK_REALTIME_DATA">
+      <description>实时控制反馈数据</description>
+      <field type="int16_t" name="engine_rpm_feedback">发动机转速</field>
+      <field type="float" name="pedal_aimed">油门控制目标值</field>
+      <field type="int16_t[6]" name="servo_aimed">舵机期望</field>
+      <field type="int16_t[6]" name="servo_feedback">舵机反馈</field>
     </message>
-    <message id="13002" name="SUNHAWK_S760_DATA">
-      <description>sunhawk s760 data</description>
-      <field type="float[2]" name="gear_temp">[front back] gear tempreture</field>
-      <field type="float" name="fuel_percentage"></field>
-      <field type="float" name="ecu_water_temp"></field>
-      <field type="float" name="ecu_intake_maniflod_pressure"></field>
-      <field type="float" name="ecu_intake_air_temp"></field>
-      <field type="float" name="ecu_thr_valve_opening"></field>
-      <field type="float" name="ecu_rpm_feedback"></field>
-      <field type="float" name="ecu_rpm_accurancy"></field>
-      <field type="float" name="ecu_pedal_aimed"></field>
-      <field type="float" name="ecu_pedal_feedback"></field>
-      <field type="float" name="ecu_oil_temp"></field>
-      <field type="float" name="ecu_oil_pressure"></field>
-      <field type="float" name="ecu_gaso_pressure"></field>
-      <field type="float" name="ectl_aimed"></field>
-      <field type="float" name="ecu_input_v"></field>
-      <field type="uint8_t" name="state">bit1 landing detector2|bit0 landing detector1</field>
+
+    <!-- 飞机状态数据 (0.5Hz) -->
+    <message id="13003" name="SUNHAWK_PLANE_STATUS">
+      <description>飞机状态数据</description>
+      <field type="float[6]" name="motor_current">电机电流</field>
+      <field type="int16_t[6]" name="motor_temperature">电机温度</field>
+      <field type="float" name="power_voltage">动力系统电压</field>
+      <field type="float" name="starting_voltage">启动系统电压</field>
+      <field type="int16_t[2]" name="gear_temperature">齿轮箱温度[前,后]</field>
     </message>
-    <message id="13003" name="SUNHAWK_S100_DATA">
-      <description>sunhawk s100 data</description>
-      <field type="float[4]" name="k_temp"></field>
-      <field type="float[4]" name="ntc_temp"></field>
-      <field type="float[2]" name="tp100_temp"></field>
-      <field type="float" name="oil_temp"></field>
-      <field type="float" name="oil_percentage"></field>
-      <field type="float" name="gaso_pressure"></field>
-      <field type="float" name="fuel_percentage"></field>
-      <field type="float" name="engine_rpm_feedback"></field>
-      <field type="float" name="starting_v"></field>
-      <field type="float" name="thr_servo_aimed">Throttle servo control</field>
-      <field type="uint8_t" name="state">bit1 landing detector2|bit0 landing detector1</field>
+
+    <!-- 发动机监控数据 (1Hz) -->
+    <message id="13004" name="SUNHAWK_ENGINE_MONITOR">
+      <description>发动机监控数据</description>
+      <field type="int16_t" name="water_temperature">水箱温度</field>
+      <field type="int16_t" name="gasoline_pressure">汽油压力</field>
+      <field type="int16_t" name="intake_manifold_pressure">进气歧管压力</field>
+      <field type="int16_t" name="intake_air_temperature">进气空气温度</field>
+      <field type="float" name="throttle_opening">节气门开度</field>
+      <field type="int16_t" name="oil_temperature">机油温度</field>
+      <field type="int16_t" name="oil_pressure">机油压力</field>
+      <field type="float" name="oil_level">机油油量</field>
+      <field type="int16_t[4]" name="exhaust_temperature">排气温度[1,2,3,4]</field>
+      <field type="int16_t[4]" name="ntc_temperature">缸头温度[1,2,3,4]</field>
     </message>
-    <message id="13004" name="SUNHAWK_MOTOR_DATA">
-      <description>sunhawk motor data</description>
-      <field type="float" name="motor_v"></field>
-      <field type="float[6]" name="motor_feedback"></field>
-      <field type="float[6]" name="motor_aimed"></field>
-      <field type="float[6]" name="motor_a"></field>
-      <field type="float[6]" name="motor_temp"></field>
+
+    <!-- 燃油状态数据 (0.2Hz) -->
+    <message id="13005" name="SUNHAWK_FLUID_STATUS">
+      <description>燃油状态数据</description>
+      <field type="uint8_t[3]" name="fuel_level">油箱油量[1,2,3]</field>
     </message>
-    <message id="13005" name="SUNHAWK_STATE_CMD">
-      <description>sunhawk state command</description>
-      <field type="uint8_t" name="sunhawk_cmd"></field>
+
+    <!-- 命令 -->
+    <message id="13006" name="SUNHAWK_CMD">
+      <description>命令消息</description>
+      <field type="uint8_t" name="cmd">命令</field>
+      <field type="uint8_t" name="param">参数</field>
     </message>
+
+    <!-- 命令反馈 -->
+    <message id="13007" name="SUNHAWK_CMD_FEEDBACK">
+      <description>命令反馈状态</description>
+      <field type="uint8_t" name="throw_goods">抛投状态</field>
+      <field type="uint8_t" name="load_status">负载开关状态</field>
+      <field type="uint8_t" name="led_power">LED电源状态</field>
+      <field type="uint8_t" name="pod_power">吊舱电源状态</field>
+      <field type="uint8_t" name="pressure_valves">压力阀状态</field>
+      <field type="uint8_t" name="sustained_release">缓释阀状态</field>
+      <field type="uint8_t" name="ignition_switch">点火开关状态</field>
+      <field type="uint8_t" name="oilpump_switch">油泵开关状态</field>
+      <field type="uint8_t" name="radar_switch">雷达开关状态</field>
+    </message>
+
   </messages>
 </mavlink>
