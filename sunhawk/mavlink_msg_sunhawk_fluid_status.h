@@ -5,16 +5,16 @@
 
 
 typedef struct __mavlink_sunhawk_fluid_status_t {
- uint8_t fuel_level[3]; /*<  ”Õœ‰”Õ¡ø[1,2,3]*/
+ float fuel_level[3]; /*<  ”Õœ‰”Õ¡ø[1,2,3]*/
 } mavlink_sunhawk_fluid_status_t;
 
-#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN 3
-#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN 3
-#define MAVLINK_MSG_ID_13005_LEN 3
-#define MAVLINK_MSG_ID_13005_MIN_LEN 3
+#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN 12
+#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN 12
+#define MAVLINK_MSG_ID_13005_LEN 12
+#define MAVLINK_MSG_ID_13005_MIN_LEN 12
 
-#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC 195
-#define MAVLINK_MSG_ID_13005_CRC 195
+#define MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC 172
+#define MAVLINK_MSG_ID_13005_CRC 172
 
 #define MAVLINK_MSG_SUNHAWK_FLUID_STATUS_FIELD_FUEL_LEVEL_LEN 3
 
@@ -23,14 +23,14 @@ typedef struct __mavlink_sunhawk_fluid_status_t {
     13005, \
     "SUNHAWK_FLUID_STATUS", \
     1, \
-    {  { "fuel_level", NULL, MAVLINK_TYPE_UINT8_T, 3, 0, offsetof(mavlink_sunhawk_fluid_status_t, fuel_level) }, \
+    {  { "fuel_level", NULL, MAVLINK_TYPE_FLOAT, 3, 0, offsetof(mavlink_sunhawk_fluid_status_t, fuel_level) }, \
          } \
 }
 #else
 #define MAVLINK_MESSAGE_INFO_SUNHAWK_FLUID_STATUS { \
     "SUNHAWK_FLUID_STATUS", \
     1, \
-    {  { "fuel_level", NULL, MAVLINK_TYPE_UINT8_T, 3, 0, offsetof(mavlink_sunhawk_fluid_status_t, fuel_level) }, \
+    {  { "fuel_level", NULL, MAVLINK_TYPE_FLOAT, 3, 0, offsetof(mavlink_sunhawk_fluid_status_t, fuel_level) }, \
          } \
 }
 #endif
@@ -45,17 +45,17 @@ typedef struct __mavlink_sunhawk_fluid_status_t {
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_fluid_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
-                               const uint8_t *fuel_level)
+                               const float *fuel_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN];
 
-    _mav_put_uint8_t_array(buf, 0, fuel_level, 3);
+    _mav_put_float_array(buf, 0, fuel_level, 3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #else
     mavlink_sunhawk_fluid_status_t packet;
 
-    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(uint8_t)*3);
+    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(float)*3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #endif
 
@@ -74,17 +74,17 @@ static inline uint16_t mavlink_msg_sunhawk_fluid_status_pack(uint8_t system_id, 
  * @return length of the message in bytes (excluding serial stream start sign)
  */
 static inline uint16_t mavlink_msg_sunhawk_fluid_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
-                               const uint8_t *fuel_level)
+                               const float *fuel_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN];
 
-    _mav_put_uint8_t_array(buf, 0, fuel_level, 3);
+    _mav_put_float_array(buf, 0, fuel_level, 3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #else
     mavlink_sunhawk_fluid_status_t packet;
 
-    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(uint8_t)*3);
+    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(float)*3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #endif
 
@@ -107,17 +107,17 @@ static inline uint16_t mavlink_msg_sunhawk_fluid_status_pack_status(uint8_t syst
  */
 static inline uint16_t mavlink_msg_sunhawk_fluid_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                mavlink_message_t* msg,
-                                   const uint8_t *fuel_level)
+                                   const float *fuel_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN];
 
-    _mav_put_uint8_t_array(buf, 0, fuel_level, 3);
+    _mav_put_float_array(buf, 0, fuel_level, 3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #else
     mavlink_sunhawk_fluid_status_t packet;
 
-    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(uint8_t)*3);
+    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(float)*3);
         memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN);
 #endif
 
@@ -174,17 +174,17 @@ static inline uint16_t mavlink_msg_sunhawk_fluid_status_encode_status(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sunhawk_fluid_status_send(mavlink_channel_t chan, const uint8_t *fuel_level)
+static inline void mavlink_msg_sunhawk_fluid_status_send(mavlink_channel_t chan, const float *fuel_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN];
 
-    _mav_put_uint8_t_array(buf, 0, fuel_level, 3);
+    _mav_put_float_array(buf, 0, fuel_level, 3);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS, buf, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC);
 #else
     mavlink_sunhawk_fluid_status_t packet;
 
-    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(uint8_t)*3);
+    mav_array_memcpy(packet.fuel_level, fuel_level, sizeof(float)*3);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS, (const char *)&packet, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC);
 #endif
 }
@@ -211,17 +211,17 @@ static inline void mavlink_msg_sunhawk_fluid_status_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sunhawk_fluid_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const uint8_t *fuel_level)
+static inline void mavlink_msg_sunhawk_fluid_status_send_buf(mavlink_message_t *msgbuf, mavlink_channel_t chan,  const float *fuel_level)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char *buf = (char *)msgbuf;
 
-    _mav_put_uint8_t_array(buf, 0, fuel_level, 3);
+    _mav_put_float_array(buf, 0, fuel_level, 3);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS, buf, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC);
 #else
     mavlink_sunhawk_fluid_status_t *packet = (mavlink_sunhawk_fluid_status_t *)msgbuf;
 
-    mav_array_memcpy(packet->fuel_level, fuel_level, sizeof(uint8_t)*3);
+    mav_array_memcpy(packet->fuel_level, fuel_level, sizeof(float)*3);
     _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS, (const char *)packet, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_MIN_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_LEN, MAVLINK_MSG_ID_SUNHAWK_FLUID_STATUS_CRC);
 #endif
 }
@@ -237,9 +237,9 @@ static inline void mavlink_msg_sunhawk_fluid_status_send_buf(mavlink_message_t *
  *
  * @return  ”Õœ‰”Õ¡ø[1,2,3]
  */
-static inline uint16_t mavlink_msg_sunhawk_fluid_status_get_fuel_level(const mavlink_message_t* msg, uint8_t *fuel_level)
+static inline uint16_t mavlink_msg_sunhawk_fluid_status_get_fuel_level(const mavlink_message_t* msg, float *fuel_level)
 {
-    return _MAV_RETURN_uint8_t_array(msg, fuel_level, 3,  0);
+    return _MAV_RETURN_float_array(msg, fuel_level, 3,  0);
 }
 
 /**

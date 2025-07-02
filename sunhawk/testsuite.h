@@ -230,12 +230,12 @@ static void mavlink_test_sunhawk_fluid_status(uint8_t system_id, uint8_t compone
         uint8_t buffer[MAVLINK_MAX_PACKET_LEN];
         uint16_t i;
     mavlink_sunhawk_fluid_status_t packet_in = {
-        { 5, 6, 7 }
+        { 17.0, 18.0, 19.0 }
     };
     mavlink_sunhawk_fluid_status_t packet1, packet2;
         memset(&packet1, 0, sizeof(packet1));
         
-        mav_array_memcpy(packet1.fuel_level, packet_in.fuel_level, sizeof(uint8_t)*3);
+        mav_array_memcpy(packet1.fuel_level, packet_in.fuel_level, sizeof(float)*3);
         
 #ifdef MAVLINK_STATUS_FLAG_OUT_MAVLINK1
         if (status->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1) {

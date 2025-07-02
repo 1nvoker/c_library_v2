@@ -110,7 +110,7 @@
     <!-- 燃油状态数据 (0.2Hz) -->
     <message id="13005" name="SUNHAWK_FLUID_STATUS">
       <description>燃油状态数据</description>
-      <field type="uint8_t[3]" name="fuel_level">油箱油量[1,2,3]</field>
+      <field type="float[3]" name="fuel_level">油箱油量[1,2,3]</field>
     </message>
 
     <!-- 命令 -->
