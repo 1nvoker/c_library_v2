@@ -10,7 +10,7 @@
     #error Wrong include order: MAVLINK_SUNHAWK.H MUST NOT BE DIRECTLY USED. Include mavlink.h from the same directory instead or set ALL AND EVERY defines from MAVLINK.H manually accordingly, including the #define MAVLINK_H call.
 #endif
 
-#define MAVLINK_SUNHAWK_XML_HASH 4787497368364286184
+#define MAVLINK_SUNHAWK_XML_HASH -4857806623520885045
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,6 +53,19 @@ typedef enum MAV_SUNHAWK_STATE_CMD
    MAV_RADAR_SWITCH=13, /* 雷达开关 | */
    MAV_SUNHAWK_STATE_CMD_ENUM_END=14, /*  | */
 } MAV_SUNHAWK_STATE_CMD;
+#endif
+
+/** @brief 命令位图, 1表示开启设备, 0表示关闭设备。约定: 设备1表示飞机最前端的设备, 设备4表示飞机最后端的设备 */
+#ifndef HAVE_ENUM_MAV_CMD_BITMAP
+#define HAVE_ENUM_MAV_CMD_BITMAP
+typedef enum MAV_CMD_BITMAP
+{
+   DEVICE_1=1, /* 设备1 |Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
+   DEVICE_2=2, /* 设备2 |Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
+   DEVICE_3=4, /* 设备3 |Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
+   DEVICE_4=8, /* 设备4 |Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)| Reserved (default:0)|  */
+   MAV_CMD_BITMAP_ENUM_END=9, /*  | */
+} MAV_CMD_BITMAP;
 #endif
 
 // MAVLINK VERSION

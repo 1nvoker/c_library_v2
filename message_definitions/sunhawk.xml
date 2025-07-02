@@ -16,7 +16,7 @@
       <entry value="3" name="MAV_THROW_GOODS">
         <description>抛投</description>
       </entry>
-      
+
       <!-- 设备控制命令 -->
       <entry value="4" name="MAV_LOAD">
         <description>负载开关</description>
@@ -33,7 +33,7 @@
       <entry value="8" name="MAV_SUSTAINED_RELEASE">
         <description>缓释阀</description>
       </entry>
-      
+
       <!-- 角度控制命令 -->
       <entry value="9" name="MAV_LIGHT_ANGLE">
         <description>照明角度</description>
@@ -41,7 +41,7 @@
       <entry value="10" name="MAV_SPRAY_ANGLE">
         <description>喷洒角度</description>
       </entry>
-      
+
       <!-- 开关控制命令 -->
       <entry value="11" name="MAV_IGNITION_SWITCH">
         <description>点火开关</description>
@@ -55,23 +55,22 @@
         <description>雷达开关</description>
       </entry>
     </enum>
+    <enum name="MAV_CMD_BITMAP" bitmask="true">
+      <description>命令位图, 1表示开启设备, 0表示关闭设备。约定: 设备1表示飞机最前端的设备, 设备4表示飞机最后端的设备</description>
+      <entry value="1" name="DEVICE_1">
+        <description>设备1</description>
+      </entry>
+      <entry value="2" name="DEVICE_2">
+        <description>设备2</description>
+      </entry>
+      <entry value="4" name="DEVICE_3">
+        <description>设备3</description>
+      </entry>
+      <entry value="8" name="DEVICE_4">
+        <description>设备4</description>
+      </entry>
+    </enum>
   </enums>
-
-  <enum name="MAV_CMD_BITMAP" bitmask="true">
-    <description>命令位图, 1表示开启设备, 0表示关闭设备。约定: 设备1表示飞机最前端的设备, 设备4表示飞机最后端的设备</description>
-    <entry value="1" name="DEVICE_1">
-      <description>设备1</description>
-    </entry>
-    <entry value="2" name="DEVICE_2">
-      <description>设备2</description>
-    </entry>
-    <entry value="4" name="DEVICE_3">
-      <description>设备3</description>
-    </entry>
-    <entry value="8" name="DEVICE_4">
-      <description>设备4</description>
-    </entry>
-  </enum>
 
   <messages>
     <!-- 实时控制反馈 (5Hz) -->
